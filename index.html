@@ -1,314 +1,281 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Space Experiment AI - Setup</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>Missionmind AI - Space Experiment</title>
 
     <style>
-
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #eef4ff;
-        }
-
-        .setup-container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .setup-card {
-            width: 420px;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        }
-
-        .setup-logo {
-            text-align: center;
-            font-size: 50px;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #173b7a;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 14px;
-            border: 1px solid #ccd6e5;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #2864d7;
-        }
-
-        button {
-            width: 100%;
-            margin-top: 30px;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #2864d7;
+            background: #071426;
             color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
         }
 
-        button:hover {
-            background: #174fae;
-        }
-
-        #message {
+        header {
+            background: #0d2340;
+            padding: 20px;
             text-align: center;
-            margin-top: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #4da6ff;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            color: #b8c7d9;
+        }
+
+        .status {
+            margin: 20px auto;
+            max-width: 900px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #102d4d;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: #10243b;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #21476e;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #69b7ff;
+        }
+
+        .value {
+            font-size: 24px;
             font-weight: bold;
         }
 
-        .success {
-            color: #16803c;
+        .steps {
+            margin-top: 25px;
+            background: #10243b;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .step {
+            padding: 12px;
+            margin: 8px 0;
+            background: #173451;
+            border-radius: 8px;
+        }
+
+        .connected {
+            color: #4dff88;
         }
 
         .error {
-            color: #c62828;
+            color: #ff6464;
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<header>
+    <h1>🚀 Missionmind AI</h1>
+    <p>AI-Based Activity Recognition for Space Experiments</p>
+</header>
 
-<div class="setup-container">
+<div class="status">
+    Backend:
+    <strong id="connectionStatus">Connecting...</strong>
+</div>
 
+<div class="container">
 
-    <div class="setup-card">
+    <div class="cards">
 
-
-        <div class="setup-logo">
-            🚀
+        <div class="card">
+            <h3>Experiment ID</h3>
+            <div class="value" id="experimentId">-</div>
         </div>
 
+        <div class="card">
+            <h3>Participant</h3>
+            <div class="value" id="participantId">-</div>
+        </div>
 
-        <h1>
-            Space Experiment AI
-        </h1>
+        <div class="card">
+            <h3>Current Activity</h3>
+            <div class="value" id="currentActivity">-</div>
+        </div>
 
+        <div class="card">
+            <h3>Current Step</h3>
+            <div class="value" id="currentStep">-</div>
+        </div>
 
-        <p class="subtitle">
-            Experiment Setup
-        </p>
+        <div class="card">
+            <h3>Status</h3>
+            <div class="value" id="status">-</div>
+        </div>
 
+        <div class="card">
+            <h3>Confidence</h3>
+            <div class="value" id="confidence">0%</div>
+        </div>
 
-        <!-- EXPERIMENT ID -->
+    </div>
 
-        <label for="experimentId">
-            🧪 Experiment ID
-        </label>
+    <div class="steps">
 
-        <input
-            type="text"
-            id="experimentId"
-            placeholder="Example: EXP001"
-        >
+        <h2>Experiment Monitoring</h2>
 
+        <div class="step">
+            Expected Activity:
+            <strong id="expectedActivity">-</strong>
+        </div>
 
-        <!-- PARTICIPANT ID -->
-
-        <label for="participantId">
-            👤 Participant ID
-        </label>
-
-        <input
-            type="text"
-            id="participantId"
-            placeholder="Example: P001"
-        >
-
-
-        <!-- START BUTTON -->
-
-        <button onclick="startExperiment()">
-            🚀 Start Experiment
-        </button>
-
-
-        <div id="message"></div>
-
+        <div class="step">
+            Backend Connection:
+            <strong id="connectionDetails">Checking...</strong>
+        </div>
 
     </div>
 
 </div>
 
-
-
 <script>
 
+const API_URL = "https://space-experiment-ai.onrender.com";
 
-async function startExperiment() {
+async function connectBackend() {
 
+    const connectionStatus =
+        document.getElementById("connectionStatus");
 
-    const experimentId =
-        document.getElementById(
-            "experimentId"
-        ).value.trim();
-
-
-    const participantId =
-        document.getElementById(
-            "participantId"
-        ).value.trim();
-
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    /* ========================= */
-    /* VALIDATION */
-    /* ========================= */
-
-    if (
-        experimentId === "" ||
-        participantId === ""
-    ) {
-
-        message.innerText =
-            "⚠️ Please enter both Experiment ID and Participant ID.";
-
-        message.className = "error";
-
-        return;
-
-    }
-
+    const connectionDetails =
+        document.getElementById("connectionDetails");
 
     try {
 
-
-        /* ========================= */
-        /* SEND SETUP TO BACKEND */
-        /* ========================= */
-
         const response =
-            await fetch(
-                "http://127.0.0.1:8000/setup",
-                {
+            await fetch(API_URL + "/status");
 
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                        "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        experiment_id:
-                            experimentId,
-
-                        participant_id:
-                            participantId
-
-                    })
-
-                }
-            );
-
+        if (!response.ok) {
+            throw new Error("Backend error");
+        }
 
         const data =
             await response.json();
 
+        connectionStatus.textContent =
+            "Connected successfully";
 
-        if (!response.ok) {
+        connectionStatus.className =
+            "connected";
 
-            throw new Error(
-                "Setup failed"
-            );
+        connectionDetails.textContent =
+            data.status || "Backend connected successfully";
 
-        }
+        connectionDetails.className =
+            "connected";
 
-
-        /* ========================= */
-        /* SUCCESS MESSAGE */
-        /* ========================= */
-
-        message.innerText =
-            "✅ Experiment setup completed!";
-
-        message.className =
-            "success";
-
-
-        /* ========================= */
-        /* OPEN DASHBOARD */
-        /* ========================= */
-
-        setTimeout(
-            function() {
-
-                window.location.href =
-                    "dashboard.html";
-
-            },
-            800
-        );
-
-
-    }
-
-
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
+        connectionStatus.textContent =
+            "Cannot connect to backend";
 
-        message.innerText =
-            "❌ Cannot connect to backend. Please start FastAPI.";
-
-        message.className =
+        connectionStatus.className =
             "error";
 
+        connectionDetails.textContent =
+            "Backend connection failed";
+
+        connectionDetails.className =
+            "error";
     }
+}
+
+
+async function loadExperiment() {
+
+    try {
+
+        const response =
+            await fetch(API_URL + "/experiment");
+
+        if (!response.ok) {
+            throw new Error("Experiment API error");
+        }
+
+        const data =
+            await response.json();
+
+        document.getElementById("experimentId").textContent =
+            data.experiment_id || "EXP001";
+
+        document.getElementById("participantId").textContent =
+            data.participant_id || "P001";
+
+        document.getElementById("currentActivity").textContent =
+            data.current_activity || "-";
+
+        document.getElementById("currentStep").textContent =
+            (data.current_step || 1) +
+            "/" +
+            (data.total_steps || 5);
+
+        document.getElementById("status").textContent =
+            data.status || "WAITING";
+
+        document.getElementById("confidence").textContent =
+            ((data.confidence || 0) * 100).toFixed(1) + "%";
+
+        document.getElementById("expectedActivity").textContent =
+            data.expected_activity || "-";
+
+    } catch (error) {
+
+        console.error(
+            "Experiment loading error:",
+            error
+        );
+
+    }
+}
+
+
+async function refreshDashboard() {
+
+    await connectBackend();
+
+    await loadExperiment();
 
 }
 
 
+refreshDashboard();
+
+setInterval(refreshDashboard, 3000);
+
 </script>
 
-
 </body>
-
 </html>
