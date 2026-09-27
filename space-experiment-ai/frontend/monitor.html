@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Live Experiment Monitoring</title>
+</head>
+
+<body>
+
+    <h1>Live Experiment Monitoring</h1>
+
+    <video id="camera" width="640" height="480" autoplay playsinline></video>
+
+    <br><br>
+
+    <button onclick="startCamera()">
+        Start Camera
+    </button>
+    <button onclick="checkBackend()">
+    Check Backend
+    </button>
+
+    <p id="status">Waiting for activity...</p>
+
+    <script src="camera.js"></script>
+
+</body>
+
+</html>
