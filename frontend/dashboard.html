@@ -1,373 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Space Experiment AI - Dashboard</title>
+    <title>AI Experiment Dashboard</title>
 
     <style>
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
         }
 
         body {
-            background: #eef4ff;
-            color: #17233c;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+            color: #172033;
         }
 
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
+        /* =========================
+           HEADER
+        ========================= */
 
-        /* SIDEBAR */
-        .sidebar {
-            width: 230px;
-            background: #102a56;
+        header {
+            background: #0b2d4f;
             color: white;
-            padding: 25px 18px;
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 35px;
-            font-size: 20px;
-        }
-
-        .sidebar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 13px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-        }
-
-        .sidebar a:hover {
-            background: #1c478c;
-        }
-
-        /* MAIN */
-        .main {
-            margin-left: 230px;
-            width: calc(100% - 230px);
-            padding: 25px;
-        }
-
-        .header {
+            padding: 18px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
         }
 
-        .header h1 {
-            font-size: 27px;
+        header h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #c8d8e8;
+            font-size: 14px;
         }
 
         .report-btn {
-            background: #1769ff;
+            background: #1683d8;
             color: white;
-            padding: 11px 18px;
-            border-radius: 8px;
             text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 7px;
             font-weight: bold;
         }
 
-        /* CARDS */
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: 94%;
+            max-width: 1400px;
+            margin: 25px auto;
+        }
+
+        /* =========================
+           CONNECTION
+        ========================= */
+
+        .connection {
+            background: white;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .connection strong {
+            color: #159447;
+        }
+
+        /* =========================
+           CARDS
+        ========================= */
+
         .cards {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
 
         .card {
             background: white;
-            padding: 18px;
+            padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .card-title {
-            font-size: 13px;
-            color: #68758a;
-            margin-bottom: 8px;
+            color: #65748b;
+            font-size: 14px;
+            margin-bottom: 10px;
         }
 
         .card-value {
-            font-size: 21px;
+            font-size: 24px;
             font-weight: bold;
+            color: #0b2d4f;
         }
 
-        /* PROGRESS */
-        .progress-box {
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .section {
             background: white;
-            padding: 20px;
+            padding: 22px;
+            margin-top: 20px;
             border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #0b2d4f;
+        }
+
+        .progress-background {
+            height: 18px;
+            background: #dce5ee;
+            border-radius: 20px;
+            overflow: hidden;
         }
 
         .progress-bar {
-            width: 100%;
-            height: 18px;
-            background: #dbe4f5;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-top: 12px;
-        }
-
-        .progress-fill {
             height: 100%;
             width: 0%;
-            background: #1769ff;
-            transition: width 0.4s;
+            background: #1683d8;
+            transition: width 0.5s;
         }
 
-        /* CAMERA */
-        .camera-section {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
+        /* =========================
+           CAMERA
+        ========================= */
 
-        .camera {
+        .camera-container {
             width: 100%;
-            height: 550px;
-            background: black;
-            border-radius: 12px;
+            background: #06131f;
+            border-radius: 10px;
             overflow: hidden;
-            margin-top: 15px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .camera img {
+        #cameraFeed {
             width: 100%;
-            height: 100%;
+            max-height: 650px;
             object-fit: contain;
             display: block;
         }
 
-        /* DETAILS */
-        .details {
-            background: white;
+        .camera-message {
+            color: #aebdca;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* =========================
+           ACTIVITY INFO
+        ========================= */
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .activity-box {
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            background: #f2f6fa;
         }
 
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 13px 5px;
-            border-bottom: 1px solid #e5e9f2;
+        .activity-box h3 {
+            margin-top: 0;
+            color: #536579;
         }
 
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            color: #68758a;
+        .activity-value {
+            font-size: 23px;
             font-weight: bold;
+            color: #0b2d4f;
         }
 
-        .detail-value {
-            font-weight: bold;
-        }
-
-        /* STATUS */
-        #status {
-            font-weight: bold;
-            padding: 6px 12px;
-            border-radius: 8px;
-            display: inline-block;
-        }
+        /* =========================
+           STATUS
+        ========================= */
 
         .status-correct {
-            color: #087f35;
-            background: #d9f7e5;
+            color: #149447;
         }
 
         .status-wrong {
-            color: #c62828;
-            background: #ffe0e0;
+            color: #d62f2f;
         }
 
         .status-waiting {
-            color: #a66a00;
-            background: #fff1c2;
+            color: #d28a00;
         }
 
-        /* ALERT */
-        .alert {
+        /* =========================
+           ALERT
+        ========================= */
+
+        .wrong-alert {
             display: none;
-            background: #ffe0e0;
-            color: #b71c1c;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: bold;
+            background: #ffe5e5;
+            border-left: 6px solid #d62f2f;
+            padding: 18px;
+            margin-top: 20px;
+            border-radius: 8px;
+            color: #8d1616;
         }
 
-        /* LOG */
-        .logs {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        /* =========================
+           LOG TABLE
+        ========================= */
+
+        .table-container {
             overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
         }
 
         th,
         td {
-            padding: 11px;
+            padding: 13px;
+            border-bottom: 1px solid #dce3ea;
             text-align: left;
-            border-bottom: 1px solid #e5e9f2;
         }
 
         th {
-            background: #f2f6fd;
+            background: #0b2d4f;
+            color: white;
         }
 
-        .correct-text {
-            color: #087f35;
-            font-weight: bold;
-        }
+        /* =========================
+           RESPONSIVE
+        ========================= */
 
-        .wrong-text {
-            color: #c62828;
-            font-weight: bold;
-        }
-
-        @media (max-width: 900px) {
-            .sidebar {
-                display: none;
-            }
-
-            .main {
-                margin-left: 0;
-                width: 100%;
-            }
+        @media (max-width: 800px) {
 
             .cards {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 96%;
             }
         }
     </style>
 </head>
 
+
 <body>
 
-<div class="layout">
+    <!-- =========================
+         HEADER
+    ========================== -->
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
+    <header>
 
-        <h2>🚀 Space Experiment AI</h2>
+        <div>
+            <h1>🚀 AI Experiment Dashboard</h1>
 
-        <a href="dashboard.html">📊 Dashboard</a>
+            <p>
+                Missionmind AI-Based Activity Recognition
+                for Space Experiments
+            </p>
+        </div>
 
-        <a href="monitor.html">🎥 AI Monitor</a>
+        <a
+            class="report-btn"
+            href="report.html"
+        >
+            View Report
+        </a>
 
-        <a href="index.html">⚙ Experiment Setup</a>
-
-        <a href="report.html">📄 Experiment Report</a>
-
-    </div>
+    </header>
 
 
-    <!-- MAIN -->
-    <div class="main">
+    <div class="container">
 
-        <div class="header">
 
-            <h1>AI Experiment Dashboard</h1>
+        <!-- =========================
+             CONNECTION STATUS
+        ========================== -->
 
-            <a class="report-btn" href="report.html">
-                View Report
-            </a>
+        <div class="connection">
+
+            Backend Connection:
+
+            <strong id="connectionStatus">
+                Connecting...
+            </strong>
 
         </div>
 
 
-        <!-- INFORMATION CARDS -->
+        <!-- =========================
+             INFORMATION CARDS
+        ========================== -->
+
         <div class="cards">
 
+
             <div class="card">
+
                 <div class="card-title">
                     Experiment ID
                 </div>
 
-                <div class="card-value" id="experimentId">
-                    —
+                <div
+                    class="card-value"
+                    id="experimentId"
+                >
+                    EXP001
                 </div>
+
             </div>
 
 
             <div class="card">
+
                 <div class="card-title">
                     Participant ID
                 </div>
 
-                <div class="card-value" id="participantId">
-                    —
+                <div
+                    class="card-value"
+                    id="participantId"
+                >
+                    P001
                 </div>
+
             </div>
 
 
             <div class="card">
+
+                <div class="card-title">
+                    Current Activity
+                </div>
+
+                <div
+                    class="card-value"
+                    id="currentActivity"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
                 <div class="card-title">
                     Current Step
                 </div>
 
-                <div class="card-value" id="currentStep">
+                <div
+                    class="card-value"
+                    id="currentStep"
+                >
                     1 / 5
                 </div>
+
             </div>
 
 
             <div class="card">
+
                 <div class="card-title">
-                    Object Confidence
+                    Status
                 </div>
-
-                <div class="card-value" id="confidence">
-                    0%
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- PROGRESS -->
-        <div class="progress-box">
-
-            <h3>Experiment Progress</h3>
-
-            <div class="progress-bar">
 
                 <div
-                    class="progress-fill"
-                    id="progressFill">
+                    class="card-value"
+                    id="status"
+                >
+                    WAITING
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    YOLO Confidence
+                </div>
+
+                <div
+                    class="card-value"
+                    id="confidence"
+                >
+                    0%
                 </div>
 
             </div>
@@ -375,554 +433,502 @@
         </div>
 
 
-        <!-- ALERT -->
-        <div
-            class="alert"
-            id="wrongAlert">
+        <!-- =========================
+             PROGRESS
+        ========================== -->
 
-            ⚠️ Wrong sequence detected!
+        <div class="section">
 
-            <span id="wrongMessage"></span>
+            <h2>Experiment Progress</h2>
+
+            <div class="progress-background">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar"
+                ></div>
+
+            </div>
 
         </div>
 
 
-        <!-- CAMERA -->
-        <div class="camera-section">
+        <!-- =========================
+             LIVE CAMERA
+        ========================== -->
+
+        <div class="section">
 
             <h2>🎥 Live AI Camera</h2>
 
-            <div class="camera">
+            <div class="camera-container">
 
                 <img
-                    src="http://127.0.0.1:8000/camera"
-                    alt="AI Camera Stream">
+                    id="cameraFeed"
+                    src="https://space-experiment-ai.onrender.com/camera"
+                    alt="Live AI Camera"
+                >
 
             </div>
 
         </div>
 
 
-        <!-- AI DETAILS -->
-        <div class="details">
+        <!-- =========================
+             ACTIVITY INFORMATION
+        ========================== -->
 
-            <h2>🤖 AI Detection Details</h2>
+        <div class="section">
 
+            <h2>Activity Monitoring</h2>
 
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    Detected Activity
-                </div>
-
-                <div
-                    class="detail-value"
-                    id="detailActivity">
-
-                    —
-
-                </div>
-
-            </div>
+            <div class="activity-grid">
 
 
-            <div class="detail-row">
+                <div class="activity-box">
 
-                <div class="detail-label">
-                    Expected Activity
-                </div>
+                    <h3>
+                        Detected Activity
+                    </h3>
 
-                <div
-                    class="detail-value"
-                    id="detailExpected">
-
-                    —
+                    <div
+                        class="activity-value"
+                        id="detectedActivity"
+                    >
+                        -
+                    </div>
 
                 </div>
 
-            </div>
 
+                <div class="activity-box">
 
-            <div class="detail-row">
+                    <h3>
+                        Expected Activity
+                    </h3>
 
-                <div class="detail-label">
-                    Object Confidence
-                </div>
-
-                <div
-                    class="detail-value"
-                    id="objectConfidence">
-
-                    0%
-
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    Hand Detection
-                </div>
-
-                <div
-                    class="detail-value"
-                    id="handDetection">
-
-                    —
+                    <div
+                        class="activity-value"
+                        id="expectedActivity"
+                    >
+                        -
+                    </div>
 
                 </div>
 
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    Sequence Status
-                </div>
-
-                <div
-                    id="status"
-                    class="status-waiting">
-
-                    WAITING
-
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    Current Time
-                </div>
-
-                <div
-                    class="detail-value"
-                    id="currentTime">
-
-                    —
-
-                </div>
 
             </div>
 
         </div>
 
 
-        <!-- ACTIVITY LOG -->
-        <div class="logs">
+        <!-- =========================
+             WRONG SEQUENCE ALERT
+        ========================== -->
 
-            <h2>📋 Activity Log</h2>
+        <div
+            class="wrong-alert"
+            id="wrongAlert"
+        >
 
-            <table>
+            <h3>⚠️ Wrong Sequence Detected</h3>
 
-                <thead>
+            <p>
+                <strong>Expected:</strong>
+                <span id="wrongExpected">-</span>
+            </p>
 
-                    <tr>
-
-                        <th>Time</th>
-
-                        <th>Step</th>
-
-                        <th>Activity</th>
-
-                        <th>Status</th>
-
-                        <th>Confidence</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="logTable">
-
-                    <tr>
-
-                        <td colspan="5">
-                            Waiting for AI activity...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
+            <p>
+                <strong>Detected:</strong>
+                <span id="wrongDetected">-</span>
+            </p>
 
         </div>
+
+
+        <!-- =========================
+             ACTIVITY LOG
+        ========================== -->
+
+        <div class="section">
+
+            <h2>Activity Log</h2>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Time</th>
+                            <th>Step</th>
+                            <th>Activity</th>
+                            <th>Status</th>
+                            <th>Confidence</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="activityLog">
+
+                        <tr>
+                            <td colspan="5">
+                                Waiting for AI activity...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
 
     </div>
 
-</div>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        // =========================================
+        // LIVE RENDER BACKEND
+        // =========================================
+
+        const BACKEND =
+            "https://space-experiment-ai.onrender.com";
 
 
-<script>
+        // =========================================
+        // HELPER
+        // =========================================
 
-const BACKEND = "http://127.0.0.1:8000";
+        function setText(id, value) {
 
-let lastVoiceMessage = "";
+            const element =
+                document.getElementById(id);
 
-
-/* VOICE ALERT */
-
-function speakWrongSequence(message) {
-
-    if (message === lastVoiceMessage) {
-        return;
-    }
-
-    lastVoiceMessage = message;
-
-    if ("speechSynthesis" in window) {
-
-        const speech =
-            new SpeechSynthesisUtterance(message);
-
-        speech.rate = 0.9;
-
-        speech.pitch = 1;
-
-        window.speechSynthesis.speak(speech);
-    }
-}
-
-
-/* FETCH EXPERIMENT */
-
-async function loadExperiment() {
-
-    try {
-
-        const response =
-            await fetch(BACKEND + "/experiment");
-
-        const data =
-            await response.json();
-
-
-        /* BASIC INFORMATION */
-
-        document.getElementById(
-            "experimentId"
-        ).innerText =
-            data.experiment_id || "—";
-
-
-        document.getElementById(
-            "participantId"
-        ).innerText =
-            data.participant_id || "—";
-
-
-        const currentStep =
-            Number(data.current_step || 1);
-
-
-        const totalSteps =
-            Number(data.total_steps || 5);
-
-
-        document.getElementById(
-            "currentStep"
-        ).innerText =
-            currentStep + " / " + totalSteps;
-
-
-        /* CONFIDENCE */
-
-        const confidence =
-            Number(data.confidence || 0);
-
-
-        const confidencePercent =
-            Math.round(confidence * 100);
-
-
-        document.getElementById(
-            "confidence"
-        ).innerText =
-            confidencePercent + "%";
-
-
-        document.getElementById(
-            "objectConfidence"
-        ).innerText =
-            confidencePercent + "%";
-
-
-        /* ACTIVITY */
-
-        document.getElementById(
-            "detailActivity"
-        ).innerText =
-            data.current_activity || "—";
-
-
-        /* EXPECTED */
-
-        document.getElementById(
-            "detailExpected"
-        ).innerText =
-            data.expected_activity || "—";
-
-
-        /* STATUS */
-
-        const statusElement =
-            document.getElementById("status");
-
-
-        statusElement.innerText =
-            data.status || "WAITING";
-
-
-        statusElement.className = "";
-
-
-        if (data.status === "CORRECT") {
-
-            statusElement.classList.add(
-                "status-correct"
-            );
-
-        }
-
-        else if (data.status === "WRONG") {
-
-            statusElement.classList.add(
-                "status-wrong"
-            );
-
-        }
-
-        else {
-
-            statusElement.classList.add(
-                "status-waiting"
-            );
+            if (element) {
+                element.textContent = value;
+            }
 
         }
 
 
-        /* WRONG ALERT */
+        // =========================================
+        // CONNECTION
+        // =========================================
 
-        const alertBox =
-            document.getElementById(
-                "wrongAlert"
-            );
+        async function checkBackend() {
 
+            try {
 
-        if (data.status === "WRONG") {
+                const response =
+                    await fetch(
+                        BACKEND + "/status"
+                    );
 
-            alertBox.style.display =
-                "block";
+                if (!response.ok) {
+                    throw new Error(
+                        "Backend unavailable"
+                    );
+                }
 
+                const data =
+                    await response.json();
 
-            const message =
-                "Expected " +
-                data.expected_activity +
-                ". Detected " +
-                data.current_activity;
+                setText(
+                    "connectionStatus",
+                    data.status ||
+                    "Backend connected successfully"
+                );
 
+            }
 
-            document.getElementById(
-                "wrongMessage"
-            ).innerText =
-                " " + message;
+            catch (error) {
 
+                console.error(
+                    "Backend connection:",
+                    error
+                );
 
-            speakWrongSequence(
-                "Wrong sequence. " +
-                message
-            );
+                setText(
+                    "connectionStatus",
+                    "Cannot connect to backend"
+                );
+
+            }
 
         }
 
-        else {
 
-            alertBox.style.display =
-                "none";
+        // =========================================
+        // EXPERIMENT DATA
+        // =========================================
+
+        async function loadExperiment() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        BACKEND + "/experiment"
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Experiment request failed"
+                    );
+                }
+
+                const data =
+                    await response.json();
+
+
+                // Experiment ID
+
+                setText(
+                    "experimentId",
+                    data.experiment_id ||
+                    "EXP001"
+                );
+
+
+                // Participant
+
+                setText(
+                    "participantId",
+                    data.participant_id ||
+                    "P001"
+                );
+
+
+                // Activity
+
+                const activity =
+                    data.current_activity ||
+                    data.activity ||
+                    "-";
+
+                setText(
+                    "currentActivity",
+                    activity
+                );
+
+                setText(
+                    "detectedActivity",
+                    activity
+                );
+
+
+                // Step
+
+                const currentStep =
+                    Number(
+                        data.current_step ||
+                        data.step ||
+                        1
+                    );
+
+                const totalSteps =
+                    Number(
+                        data.total_steps ||
+                        5
+                    );
+
+                setText(
+                    "currentStep",
+                    currentStep +
+                    " / " +
+                    totalSteps
+                );
+
+
+                // Status
+
+                const currentStatus =
+                    data.status ||
+                    "WAITING";
+
+                const statusElement =
+                    document.getElementById(
+                        "status"
+                    );
+
+                if (statusElement) {
+
+                    statusElement.textContent =
+                        currentStatus;
+
+                    statusElement.className =
+                        "card-value";
+
+                    if (
+                        currentStatus ===
+                        "CORRECT"
+                    ) {
+
+                        statusElement.classList.add(
+                            "status-correct"
+                        );
+
+                    }
+
+                    else if (
+                        currentStatus ===
+                        "WRONG"
+                    ) {
+
+                        statusElement.classList.add(
+                            "status-wrong"
+                        );
+
+                    }
+
+                    else {
+
+                        statusElement.classList.add(
+                            "status-waiting"
+                        );
+
+                    }
+
+                }
+
+
+                // Confidence
+
+                const confidence =
+                    Number(
+                        data.confidence ||
+                        0
+                    );
+
+                setText(
+                    "confidence",
+                    (confidence * 100)
+                        .toFixed(1) +
+                    "%"
+                );
+
+
+                // Expected activity
+
+                const expected =
+                    data.expected_activity ||
+                    "-";
+
+                setText(
+                    "expectedActivity",
+                    expected
+                );
+
+
+                // Progress
+
+                let progress =
+                    (
+                        (currentStep - 1) /
+                        totalSteps
+                    ) * 100;
+
+                if (progress < 0) {
+                    progress = 0;
+                }
+
+                if (progress > 100) {
+                    progress = 100;
+                }
+
+                const progressBar =
+                    document.getElementById(
+                        "progressBar"
+                    );
+
+                if (progressBar) {
+                    progressBar.style.width =
+                        progress + "%";
+                }
+
+
+                // Wrong alert
+
+                const wrongAlert =
+                    document.getElementById(
+                        "wrongAlert"
+                    );
+
+                if (
+                    wrongAlert &&
+                    currentStatus ===
+                    "WRONG"
+                ) {
+
+                    wrongAlert.style.display =
+                        "block";
+
+                    setText(
+                        "wrongExpected",
+                        expected
+                    );
+
+                    setText(
+                        "wrongDetected",
+                        activity
+                    );
+
+                }
+
+                else if (wrongAlert) {
+
+                    wrongAlert.style.display =
+                        "none";
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Experiment error:",
+                    error
+                );
+
+            }
 
         }
 
 
-        /* PROGRESS */
+        // =========================================
+        // ACTIVITY LOGS
+        // =========================================
 
-        let percentage =
-            ((currentStep - 1) / totalSteps) * 100;
+        async function loadLogs() {
 
+            try {
 
-        if (currentStep >= totalSteps) {
-            percentage = 100;
-        }
+                const response =
+                    await fetch(
+                        BACKEND + "/logs"
+                    );
 
+                if (!response.ok) {
+                    return;
+                }
 
-        document.getElementById(
-            "progressFill"
-        ).style.width =
-            percentage + "%";
+                const data =
+                    await response.json();
 
+                const logs =
+                    data.logs || [];
 
-    }
-
-    catch (error) {
-
-        console.log(
-            "Backend connection error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* FETCH LOGS */
-
-async function loadLogs() {
-
-    try {
-
-        const response =
-            await fetch(BACKEND + "/logs");
-
-        const data =
-            await response.json();
-
-
-        const table =
-            document.getElementById(
-                "logTable"
-            );
-
-
-        table.innerHTML = "";
-
-
-        if (
-            !data.logs ||
-            data.logs.length === 0
-        ) {
-
-            table.innerHTML = `
-                <tr>
-                    <td colspan="5">
-                        No activity recorded yet.
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
-
-
-        data.logs
-            .slice()
-            .reverse()
-            .forEach(log => {
-
-                const row =
-                    document.createElement("tr");
-
-
-                const statusClass =
-                    log.status === "CORRECT"
-                    ? "correct-text"
-                    : log.status === "WRONG"
-                    ? "wrong-text"
-                    : "";
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${log.time || "—"}
-                    </td>
-
-                    <td>
-                        ${log.step || "—"}
-                    </td>
-
-                    <td>
-                        ${log.activity || "—"}
-                    </td>
-
-                    <td class="${statusClass}">
-                        ${log.status || "—"}
-                    </td>
-
-                    <td>
-                        ${Math.round(
-                            Number(log.confidence || 0) * 100
-                        )}%
-                    </td>
-
-                `;
-
-
-                table.appendChild(row);
-
-            });
-
-    }
-
-    catch (error) {
-
-        console.log(
-            "Log loading error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* CURRENT TIME */
-
-function updateTime() {
-
-    const now =
-        new Date();
-
-    document.getElementById(
-        "currentTime"
-    ).innerText =
-        now.toLocaleTimeString();
-
-}
-
-
-/* REFRESH */
-
-async function refreshDashboard() {
-
-    await loadExperiment();
-
-    await loadLogs();
-
-    updateTime();
-
-}
-
-
-/* START */
-
-refreshDashboard();
-
-
-/* REFRESH EVERY SECOND */
-
-setInterval(
-    refreshDashboard,
-    1000
-);
-
-</script>
-
-</body>
-</html>
+                const table =
+                    document.getElementById(
+                        "activityLog"
+                    );
